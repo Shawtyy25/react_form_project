@@ -1,16 +1,13 @@
-
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import AuthPage from "../pages/AuthPage.tsx";
+import { Route, Routes } from "react-router-dom";
+import Login from "../pages/Login.tsx";
+import Registration from "../pages/Registration.tsx";
 
 const AppRouter = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="/admin" />
-        <Route path="/home" />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/login" element={<Login />} />
+      <Route path="/registration" element={<Registration />} />
+    </Routes>
   );
 };
 
