@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect } from "react";
 
 const loginSchema = z.object({
   username: z.string().trim().min(1, "Username is required!"),
@@ -28,40 +27,61 @@ const Login = () => {
     console.log("data valid", data);
   };
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
-
   return (
     <div className="flex flex-col flex-1 justify-center items-center text-white p-10">
-      <h1 className={"text-5xl"}>Welcome back!</h1>
+      <h1 className={"text-5xl mb-10"}>Welcome back!</h1>
 
       <form
         action=""
-        className="flex flex-col w-100 gap-2 p-5"
+        className="flex flex-col w-120 gap-2 p-5"
         onSubmit={handleSubmit(onFormSubmit)}
       >
-        <label htmlFor="" className="flex gap-3 w-full justify-between">
-          Username or Email:
-          <input type="text" className="border" {...register("username")} />
-        </label>
-        {errors.username && (
-          <label className="text-sm text-red-500">
-            {errors.username.message}
+        <div className="mb-5">
+          <label
+            htmlFor="username"
+            className="select-none flex gap-3 w-full justify-between"
+          >
+            Username or Email:
+            <input
+              type="text"
+              id="username"
+              className="border p-1 rounded-xl w-[60%]"
+              autoComplete="off"
+              {...register("username")}
+            />
           </label>
-        )}
+          {errors.username && (
+            <label className="text-sm text-red-500">
+              {errors.username.message}
+            </label>
+          )}
+        </div>
 
-        <label htmlFor="" className="flex gap-3 w-full justify-between">
-          Password:
-          <input type="password" className="border" {...register("password")} />
-        </label>
-        {errors.password && (
-          <label className="text-sm text-red-500">
-            {errors.password.message}
+        <div>
+          <label
+            htmlFor="password"
+            className="flex gap-3 w-full justify-between select-none "
+          >
+            Password:
+            <input
+              type="password"
+              id="password"
+              className="border p-1 rounded-xl w-[60%]"
+              autoComplete="off"
+              {...register("password")}
+            />
           </label>
-        )}
+          {errors.password && (
+            <label className="text-sm text-red-500">
+              {errors.password.message}
+            </label>
+          )}
+        </div>
 
-        <button type={"submit"}>
+        <button
+          type={"submit"}
+          className="border p-2 w-[50%] m-auto rounded-2xl mt-10 cursor-pointer"
+        >
           {isSubmitting ? "Logging in..." : "Log In"}
         </button>
       </form>

@@ -15,7 +15,10 @@ const Navigation = () => {
               Login
             </Link>
 
-            <Link to="/registration" className={`text-3xl cursor-pointer ${location.pathname === "/registration" && "underline"}`}>
+            <Link
+              to="/registration"
+              className={`text-3xl cursor-pointer ${location.pathname === "/registration" && "underline"}`}
+            >
               Registration
             </Link>
           </ul>
