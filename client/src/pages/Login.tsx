@@ -1,6 +1,10 @@
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useContext } from "react";
+import { UserContext } from "../contexts/AuthContext.tsx";
+import type { User } from "../types/UserType.ts";
+import { useNavigate } from "react-router-dom";
 
 const loginSchema = z.object({
   username: z.string().trim().min(1, "Username is required!"),
@@ -8,12 +12,13 @@ const loginSchema = z.object({
   password: z
     .string()
     .trim()
-    .min(8, "Password must be at least 8 characters long!")
+    .min(5, "Password must be at least 8 characters long!")
     .min(1, "Password is required"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
+/* -------------------------Component ----------------------*/
 const Login = () => {
   const {
     register,
@@ -23,8 +28,18 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
 
+  const user = useContext<User | null>(UserContext);
+  const navigate = useNavigate();
+
+  const validate = (data: LoginFormData): boolean => {
+    return !(!(data.username === user?.username && data.password === user.password));
+  };
+
   const onFormSubmit = (data: LoginFormData) => {
-    console.log("data valid", data);
+    if (!validate(data)) return;
+
+    navigate("/main");
+    console.log(user);
   };
 
   return (
